@@ -1,14 +1,15 @@
 package com.jpragma.dailyscrum
 
 import io.micronaut.http.HttpRequest
-import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.retrieveList
 import io.micronaut.runtime.server.EmbeddedServer
 import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.annotation.MockBean
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
-import strikt.assertions.containsExactly
 import strikt.assertions.hasSize
 import strikt.assertions.isEqualTo
 
@@ -20,12 +21,26 @@ internal class OrganizationControllerTest(private val embeddedServer: EmbeddedSe
     }
 
     @Test
-    fun getAllPodsTest() {
-        val request = HttpRequest.GET<Any>("/organization/pod")
-        val pods = client.toBlocking().retrieveList<Pod>(request)
-        expectThat(pods).hasSize(1)
-        pods[0].run {
+    fun getAllTeamsTest() {
+        val request = HttpRequest.GET<Any>("/organization/team")
+        val teams = client.toBlocking().retrieveList<Team>(request)
+        expectThat(teams).hasSize(1)
+        teams[0].run {
             expectThat(name) isEqualTo "Ogres"
         }
+    }
+
+    @MockBean(OrganizationService::class)
+    fun mockOrgService(): OrganizationService {
+        val isaac = Member("Isaac", "Dev")
+        val alex = Member("Alex", "Dev")
+        val teams = listOf(Team("Ogres", OrganizationUnit("CORE-DEV"), listOf(isaac, alex), isaac))
+
+        val mock = mockk<OrganizationService>()
+        every {
+            mock.getAllTeams()
+        } returns teams
+
+        return mock
     }
 }

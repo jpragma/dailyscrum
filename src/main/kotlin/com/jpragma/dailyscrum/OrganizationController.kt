@@ -5,13 +5,12 @@ import io.micronaut.http.annotation.Get
 import org.slf4j.LoggerFactory
 
 @Controller("/organization")
-class OrganizationController {
+class OrganizationController(private val organizationService: OrganizationService) {
     private val log = LoggerFactory.getLogger(this::class.java)
 
-    @Get("/pod")
-    fun getAllPods(): List<Pod> {
-        val isaac = Member("Isaac", "Dev")
-        val alex = Member("Alex", "Dev")
-        return listOf(Pod("Ogres", OrganizationUnit("CORE-DEV"), listOf(isaac, alex), isaac))
+    @Get("/team")
+    fun getAllTeams(): List<Team> {
+        log.info("Retrieving all teams")
+        return organizationService.getAllTeams()
     }
 }
