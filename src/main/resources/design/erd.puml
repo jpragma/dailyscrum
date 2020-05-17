@@ -1,0 +1,31 @@
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+entity ORG_UNIT {
+    * id: int <<generated>>
+    --
+    * name: varchar(255)
+}
+
+entity TEAM {
+    * id: int <<generated>>
+    --
+    * org_unit_id: int
+    * name: varchar(255)
+      lead_id: int
+}
+
+entity MEMBER {
+    * id: int <<generated>>
+    --
+    * team_id: int
+    * name: varchar(255)
+    * title: varchar(255)
+      avatar: varchar(1024)
+}
+
+ORG_UNIT ||..|{ TEAM
+TEAM ||..|{ MEMBER
+@enduml
