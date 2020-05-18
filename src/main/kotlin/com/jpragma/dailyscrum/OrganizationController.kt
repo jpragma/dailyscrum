@@ -8,9 +8,16 @@ import org.slf4j.LoggerFactory
 class OrganizationController(private val organizationService: OrganizationService) {
     private val log = LoggerFactory.getLogger(this::class.java)
 
+    @Get("/")
+    fun getAllOrgUnits(): List<OrganizationUnit> {
+        return organizationService.getOrgUnits()
+    }
+
     @Get("/team")
     fun getAllTeams(): List<Team> {
         log.info("Retrieving all teams")
         return organizationService.getAllTeams()
     }
+
+
 }

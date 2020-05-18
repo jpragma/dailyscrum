@@ -23,7 +23,6 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="lead_id" type="int"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="TEAM" baseColumnNames="org_unit_id" constraintName="fk_team_org_unit" referencedTableName="ORG_UNIT" referencedColumnNames="id"/>
         <createTable tableName="MEMBER" remarks="Contains list of members per team">
