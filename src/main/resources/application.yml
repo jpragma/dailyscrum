@@ -25,6 +25,6 @@ liquibase:
     default:
       change-log: 'classpath:db/liquibase-changelog.xml'
       drop-first: false
-
+kotlin.exposed: "dsl"
 
 

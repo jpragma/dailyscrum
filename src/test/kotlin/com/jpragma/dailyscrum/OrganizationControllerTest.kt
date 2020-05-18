@@ -1,5 +1,6 @@
 package com.jpragma.dailyscrum
 
+import com.jpragma.dailyscrum.dao.OrganizationRepository
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.retrieveList
@@ -30,13 +31,13 @@ internal class OrganizationControllerTest(private val embeddedServer: EmbeddedSe
         }
     }
 
-    @MockBean(OrganizationService::class)
-    fun mockOrgService(): OrganizationService {
+    @MockBean(OrganizationRepository::class)
+    fun mockOrgRepo(): OrganizationRepository {
         val isaac = Member("Isaac", "Dev")
         val alex = Member("Alex", "Dev")
-        val teams = listOf(Team("Ogres", OrganizationUnit("CORE-DEV"), listOf(isaac, alex), isaac))
+        val teams = listOf(Team("Ogres", OrganizationUnit("CORE-DEV"), listOf(isaac, alex)))
 
-        val mock = mockk<OrganizationService>()
+        val mock = mockk<OrganizationRepository>()
         every {
             mock.getAllTeams()
         } returns teams
