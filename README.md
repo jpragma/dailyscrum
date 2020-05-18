@@ -13,4 +13,6 @@ This is a "pet project" I created to practice some skills and technologies:
 | Mocking Library | [MockK](https://mockk.io) |
 | Database | [Postgres](https://www.postgresql.org) |
 | Data access / ORM | [Exposed](https://github.com/JetBrains/Exposed) |
+| Design Diagrams | [PlantUML](https://plantuml.com) |
+
 
