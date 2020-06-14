@@ -11,8 +11,9 @@ class OrgUnitEntity(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<OrgUnitEntity>(OrgUnitTable)
 
     var name by OrgUnitTable.name
+    val teams by TeamEntity referrersOn TeamTable.orgUnit
 
-    fun toOrgUnit() = OrganizationUnit(name = name)
+    fun toOrgUnit() = OrganizationUnit(id.value, name, teams.map { it.toTeam() })
 }
 
 class TeamEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -20,17 +21,17 @@ class TeamEntity(id: EntityID<Int>) : IntEntity(id) {
 
     var orgUnit by OrgUnitEntity referencedOn TeamTable.orgUnit
     var name by TeamTable.name
-    val members by MemberEntity referrersOn MemberTable.team
 
-    fun toTeam() = Team(name, orgUnit.toOrgUnit(), members.map { it.toMember() })
+    fun toTeam() = Team(id.value, name)
 }
 
 class MemberEntity(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<MemberEntity>(MemberTable)
 
+    var teamId by MemberTable.team
     var name by MemberTable.name
     var title by MemberTable.title
     var avatar by MemberTable.avatar
 
-    fun toMember() = Member(name = name, title = title, avatar = avatar)
+    fun toMember() = Member(id.value, teamId.value, name, title, avatar)
 }
