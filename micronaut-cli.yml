@@ -1,6 +1,0 @@
-applicationType: default
-defaultPackage: com.jpragma.dailyscrum
-testFramework: junit
-sourceLanguage: kotlin
-buildTool: gradle
-features: [annotation-api, app-name, docker, gradle, h2, hibernate-validator, http-client, jdbc-hikari, junit, kotlin, kotlin-application, kotlin-extension-functions, liquibase, logback, netty-server, readme, security-jwt, shade, views-thymeleaf, yaml]
